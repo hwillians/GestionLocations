@@ -12,6 +12,10 @@ namespace Models
         public string CodePostal { get; set; }
         public string Ville { get; set; }
 
-        public override string ToString() => $"{Id} - {Nom} {Prenom}";
+        public override string ToString()
+        {
+            return string.Format("{0} - {1} {2} ({3}), {4} {5} - {6}",
+                Id, Nom, Prenom, DateNaissance.ToString("dd/MM/yy"), Adresse, CodePostal, Ville);
+        }
     }
 }
