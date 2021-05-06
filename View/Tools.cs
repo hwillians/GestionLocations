@@ -9,7 +9,7 @@ namespace View
         {
             int choix = -1;
 
-            WriteLine("*** Ménu Gestion des employés ***" +
+            WriteLine("*** Ménu Gestion des Locations ***" +
                 "\n1.- Ajouter un Client" +
                 "\n2.- Afficher la liste des Clients" +
                 "\n1.- Ajouter une Location" +
@@ -49,7 +49,7 @@ namespace View
             var s = ReadLine();
             while (String.IsNullOrEmpty(s))
             {
-                Write("Le text ne peux etre vide : ");
+                Write("Le text ne peut pas être vide : ");
                 s = ReadLine();
             }
             return s;
