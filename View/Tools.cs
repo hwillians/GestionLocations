@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Controllers;
+using System;
 using static System.Console;
 
 namespace View
 {
     public static class Tools
     {
-        public static void Menu(Controllers.ClientController clientController, string strConnexion)
+        public static void Menu(ClientController clientController, LocationController locationController, string strConnexion)
         {
             int choix = -1;
 
@@ -33,7 +34,7 @@ namespace View
                         WriteLine("Ajouter une Location");
                         break;
                     case 4:
-                        WriteLine("Afficher la liste des Locations");
+                        Write(string.Join("\n", locationController.GetListClient(strConnexion)));
                         break;
 
                     case 0: WriteLine("à bientôt..."); break;
