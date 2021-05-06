@@ -5,7 +5,7 @@ namespace View
 {
     public static class Tools
     {
-        public static void Menu()
+        public static void Menu(Controllers.ClientController clientController)
         {
             int choix = -1;
 
