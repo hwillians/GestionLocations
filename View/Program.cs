@@ -21,10 +21,10 @@ namespace View
             var clientController = unityContainer.Resolve<ClientController>();
             var locationController = unityContainer.Resolve<LocationController>();
 
-            string strConnexion = @"Data Source=(LocalDB)\MSSQLLocalDB;Integrated Security=SSPI;Initial Catalog=Location";
+
             try
             {
-                using (var sqlConnection = new SqlConnection(strConnexion))
+                using (var sqlConnection = new SqlConnection(Connection.strConnexion))
                     sqlConnection.Open();
             }
             catch (Exception e)
@@ -32,7 +32,7 @@ namespace View
                 Console.WriteLine("Erreur :" + e.Message);
             }
 
-            Tools.Menu(clientController, locationController, strConnexion);
+            Menu.Deployer(clientController, locationController);
         }
     }
 }
