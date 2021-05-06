@@ -8,9 +8,9 @@ namespace Repository
 {
     public class ClientRepository : IClientRepository
     {
-        public Client CreateClient(Client client, string strConnexion)
+        public Client CreateClient(Client client)
         {
-            using (SqlConnection sqlConnection = new SqlConnection(strConnexion))
+            using (SqlConnection sqlConnection = new SqlConnection(Connection.strConnexion))
             {
                 SqlCommand sqlCommand = new SqlCommand("INSERT INTO CLIENT (NOM, PRENOM, DATE_NAISSANCE, ADRESSE, CODE_POSTAL, VILLE)" +
                     "VALUES (@NOM, @PRENOM, @DATE_NAISSANCE, @ADRESSE, @CODE_POSTAL, @VILLE)" +
@@ -32,24 +32,24 @@ namespace Repository
                 sqlConnection.Open();
 
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+
                 sqlDataReader.Read();
                 client.Id = sqlDataReader.GetInt32(0);
-
             }
             return client;
         }
 
-        public Client GetClientById(int id, string strConnexion)
+        public Client GetClientById(int id)
         {
             Client client = null;
 
-            using (SqlConnection sqlConnection = new SqlConnection(strConnexion))
+            using (SqlConnection sqlConnection = new SqlConnection(Connection.strConnexion))
             {
                 SqlCommand sqlCommand = new SqlCommand("select * from Client where ID = @ID", sqlConnection);
                 sqlCommand.Parameters.AddWithValue("ID", id);
                 sqlConnection.Open();
                 SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
-                if (sqlDataReader.Read()) 
+                if (sqlDataReader.Read())
                     client = new Client()
                     {
                         Id = sqlDataReader.GetInt32(0),
@@ -64,10 +64,10 @@ namespace Repository
             return client;
         }
 
-        public List<Client> GetClients(string strConnexion)
+        public List<Client> GetClients()
         {
             var clients = new List<Client>();
-            using (SqlConnection sqlConnection = new SqlConnection(strConnexion))
+            using (SqlConnection sqlConnection = new SqlConnection(Connection.strConnexion))
             {
                 SqlCommand sqlCommand = new SqlCommand("select * from Client", sqlConnection);
                 sqlConnection.Open();
@@ -86,8 +86,35 @@ namespace Repository
                     });
                 }
             }
-
             return clients;
+        }
+
+        public void UpdateClient(Client client)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Connection.strConnexion))
+            {
+                SqlCommand sqlCommand = new SqlCommand("UPDATE CLIENT SET " +
+                    "NOM = @NOM, PRENOM = @PRENOM, DATE_NAISSANCE = @DATE_NAISSANCE, ADRESSE =@ADRESSE, CODE_POSTAL= @CODE_POSTAL, VILLE = @VILLE " +
+                    "WHERE ID = @ID",
+                    sqlConnection);
+
+                sqlCommand.Parameters.AddWithValue("ID", client.Id);
+                sqlCommand.Parameters.AddWithValue("NOM", client.Nom);
+                sqlCommand.Parameters.AddWithValue("PRENOM", client.Prenom);
+                sqlCommand.Parameters.AddWithValue("DATE_NAISSANCE", client.DateNaissance.ToString("MM/dd/yyyy"));
+
+                if (client.Adresse != null) sqlCommand.Parameters.AddWithValue("ADRESSE", client.Adresse);
+                else sqlCommand.Parameters.AddWithValue("ADRESSE", DBNull.Value);
+
+                if (client.CodePostal != null) sqlCommand.Parameters.AddWithValue("CODE_POSTAL", client.CodePostal);
+                else sqlCommand.Parameters.AddWithValue("CODE_POSTAL", DBNull.Value);
+
+                if (client.Ville != null) sqlCommand.Parameters.AddWithValue("VILLE", client.Ville);
+                else sqlCommand.Parameters.AddWithValue("VILLE", DBNull.Value);
+
+                sqlConnection.Open();
+                _ = sqlCommand.ExecuteNonQuery();
+            }
         }
     }
 }

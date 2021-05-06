@@ -7,10 +7,9 @@ namespace Repository
 {
     public class LocationRepository : ILocationRepository
     {
-        public Location CreateLocation(Location location, string strConnexion)
+        public Location CreateLocation(Location location)
         {
-
-            using (SqlConnection sqlConnection = new SqlConnection(strConnexion))
+            using (SqlConnection sqlConnection = new SqlConnection(Connection.strConnexion))
             {
                 SqlCommand sqlCommand = new SqlCommand("INSERT INTO LOUE(ID_CLIENT, ID_VEHICULE, NB_KM, DATE_DEBUT, DATE_FIN)" +
                     "VALUES (@ID_CLIENT, @ID_VEHICULE, @NB_KM, @DATE_DEBUT, @DATE_FIN);" +
@@ -28,14 +27,13 @@ namespace Repository
                 sqlDataReader.Read();
                 location.Id = sqlDataReader.GetInt32(0);
             }
-
             return location;
         }
 
-        public List<Location> GetListLocations(string strConnexion)
+        public List<Location> GetListLocations()
         {
             var locations = new List<Location>();
-            using (SqlConnection sqlConnection = new SqlConnection(strConnexion))
+            using (SqlConnection sqlConnection = new SqlConnection(Connection.strConnexion))
             {
                 SqlCommand sqlCommand = new SqlCommand("select * from loue", sqlConnection);
                 sqlConnection.Open();
@@ -53,7 +51,6 @@ namespace Repository
                     });
                 }
             }
-
             return locations;
         }
     }
