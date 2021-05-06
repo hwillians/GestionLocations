@@ -1,4 +1,5 @@
 ﻿using Controllers;
+using Models;
 using System;
 using static System.Console;
 
@@ -24,11 +25,18 @@ namespace View
                 switch (choix)
                 {
                     case 1:
-                        WriteLine("Afficher un client");
+                        var newClient = new Client()
+                        {
+                            Nom = GetStringConsole("Tapez le Nom : "),
+                            Prenom = GetStringConsole("Tapez le Prenom : "),
+                            DateNaissance = GetDateConsole("Tapez la date de Naissance :"),
+                        };
+
+                        WriteLine(clientController.CreateClient(newClient, strConnexion));
                         break;
 
                     case 2:
-                       Write(string.Join("\n", clientController.GetListClient(strConnexion))) ;
+                        Write(string.Join("\n", clientController.GetListClient(strConnexion)));
                         break;
                     case 3:
                         WriteLine("Ajouter une Location");
@@ -42,6 +50,14 @@ namespace View
                     default: WriteLine("Action non reconnue..."); break;
                 }
             }
+        }
+
+        public static DateTime GetDateConsole(string message = "Tapez une date : ")
+        {
+            DateTime date;
+            var saisi = GetStringConsole(message);
+            while (!DateTime.TryParse(saisi, out date)) saisi = GetStringConsole("La saisie n'est pas valide : ");
+            return date;
         }
 
         public static string GetStringConsole(string messag = "Valeur ")

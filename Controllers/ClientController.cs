@@ -14,6 +14,11 @@ namespace Controllers
             ClientRepo = clientRepo;
         }
 
+        public Client CreateClient(Client client, string strConnexion)
+        {
+            return ClientRepo.CreateClient(client,  strConnexion);
+        }
+
         public  List<Client> GetListClient(string strConnexion)
         {
             return ClientRepo.GetListClients(strConnexion);

@@ -8,8 +8,25 @@ namespace Repository
 {
     public class ClientRepository : IClientRepository
     {
-        public Client CreateClient(Client client)
+        public Client CreateClient(Client client, string strConnexion)
         {
+            using (SqlConnection sqlConnection = new SqlConnection(strConnexion))
+            {
+                SqlCommand sqlCommand = new SqlCommand("INSERT INTO CLIENT(NOM,PRENOM,DATE_NAISSANCE) VALUES(@Nom,@Prenom,@DataNaissance);" +
+                    "SELECT CAST(SCOPE_IDENTITY() AS INT);", sqlConnection);
+
+                sqlCommand.Parameters.AddWithValue("Nom", client.Nom);
+                sqlCommand.Parameters.AddWithValue("Prenom", client.Prenom);
+                sqlCommand.Parameters.AddWithValue("DataNaissance", client.DateNaissance.ToString("MM/dd/yyyy"));
+
+                sqlConnection.Open();
+
+                SqlDataReader sqlDataReader = sqlCommand.ExecuteReader();
+                sqlDataReader.Read();
+                client.Id = sqlDataReader.GetInt32(0);
+
+            }
+
             return client;
         }
 
