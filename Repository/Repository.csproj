@@ -56,5 +56,9 @@
       <Name>Repository.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="bdd\Location Create .txt" />
+    <Content Include="bdd\Location Insert data.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
