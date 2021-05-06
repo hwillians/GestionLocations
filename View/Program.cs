@@ -11,15 +11,12 @@ namespace View
     {
         static void Main(string[] args)
         {
-
             IUnityContainer unityContainer = new UnityContainer();
 
             unityContainer.RegisterType<ClientController, ClientController>();
             unityContainer.RegisterType<LocationController, LocationController>();
             unityContainer.RegisterType<IClientRepository, ClientRepository>();
             unityContainer.RegisterType<ILocationRepository, LocationRepository>();
-           
-           
 
             var clientController = unityContainer.Resolve<ClientController>();
             var locationController = unityContainer.Resolve<LocationController>();
@@ -28,10 +25,7 @@ namespace View
             try
             {
                 using (var sqlConnection = new SqlConnection(strConnexion))
-                {
                     sqlConnection.Open();
-                    Console.WriteLine("Etat de la connexion:" + sqlConnection.State);
-                }
             }
             catch (Exception e)
             {

@@ -14,8 +14,9 @@ namespace View
             WriteLine("*** Ménu Gestion des Locations ***" +
                 "\n1.- Ajouter un Client" +
                 "\n2.- Afficher la liste des Clients" +
-                "\n3.- Ajouter une Location" +
-                "\n4.- Afficher la liste des Locations" +
+                "\n3.- Afficher la liste des Clients" +
+                "\n4.- Ajouter une Location" +
+                "\n5.- Afficher la liste des Locations" +
                 "\n0.- Sortir");
 
             while (choix != 0)
@@ -36,9 +37,16 @@ namespace View
                         break;
 
                     case 2:
-                        Write(string.Join("\n", clientController.GetListClient(strConnexion)));
+                        Write(string.Join("\n", clientController.GetClients(strConnexion)));
                         break;
                     case 3:
+                        int id = GetIntConsole("Tapez l'id du client");
+                        Client c = clientController.GetClientById(id, strConnexion);
+
+                        if (c == null) WriteLine("L'id n'existe pas en base");
+                        else WriteLine(c);
+                        break;
+                    case 4:
                         var location = new Location()
                         {
                             IdClient = GetIntConsole("Id client : "),
@@ -48,9 +56,9 @@ namespace View
                             DateFin = GetDateConsole("Date fin : ")
                         };
 
-                        WriteLine(locationController.CreateLocation(location,strConnexion));
+                        WriteLine(locationController.CreateLocation(location, strConnexion));
                         break;
-                    case 4:
+                    case 5:
                         Write(string.Join("\n", locationController.GetListLocations(strConnexion)));
                         break;
 
