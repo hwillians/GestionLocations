@@ -27,7 +27,7 @@ namespace View
                         break;
 
                     case 2:
-                        WriteLine("Afficher la liste des Clients");
+                        ;
                         break;
                     case 3:
                         WriteLine("Ajouter une Location");
