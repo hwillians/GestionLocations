@@ -14,8 +14,8 @@ namespace View
             WriteLine("*** Ménu Gestion des Locations ***" +
                 "\n1.- Ajouter un Client" +
                 "\n2.- Afficher la liste des Clients" +
-                "\n1.- Ajouter une Location" +
-                "\n2.- Afficher la liste des Locations" +
+                "\n3.- Ajouter une Location" +
+                "\n4.- Afficher la liste des Locations" +
                 "\n0.- Sortir");
 
             while (choix != 0)
@@ -39,10 +39,19 @@ namespace View
                         Write(string.Join("\n", clientController.GetListClient(strConnexion)));
                         break;
                     case 3:
-                        WriteLine("Ajouter une Location");
+                        var location = new Location()
+                        {
+                            IdClient = GetIntConsole("Id client : "),
+                            IdVehicule = GetIntConsole("Id vehicule : "),
+                            NbKm = GetIntConsole("NbKm"),
+                            DateDebut = GetDateConsole("Date debut : "),
+                            DateFin = GetDateConsole("Date fin : ")
+                        };
+
+                        WriteLine(locationController.CreateLocation(location,strConnexion));
                         break;
                     case 4:
-                        Write(string.Join("\n", locationController.GetListClient(strConnexion)));
+                        Write(string.Join("\n", locationController.GetListLocations(strConnexion)));
                         break;
 
                     case 0: WriteLine("à bientôt..."); break;

@@ -13,7 +13,8 @@ namespace Models
 
         public override string ToString()
         {
-            return $"ID : {Id} ID_CLIENT : {IdClient}  ID_VEHICULE : {IdVehicule} NB_KM {NbKm} DATE_DEBUT {DateDebut} DATE_FIN {DateFin}";
+            return string.Format("{0} - Id client : {1}, Id vehicule : {2}, {3}Km  du {4} au {5}",
+                Id, IdClient, IdVehicule, NbKm, DateDebut.ToString("dd/MM/yyyy"), DateFin.ToString("dd/MM/yyyy"));
         }
     }
 }

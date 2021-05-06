@@ -13,10 +13,9 @@ namespace Controllers
             LocationRepo = locationRepo;
         }
 
-        public List<Location> GetListClient(string strConnexion)
-        {
-            return LocationRepo.GetListClients(strConnexion);
-        }
+
+        public Location CreateLocation(Location location, string strConnexion) => LocationRepo.CreateLocation(location, strConnexion);
+        public List<Location> GetListLocations(string strConnexion) => LocationRepo.GetListLocations(strConnexion);
 
     }
 }
