@@ -36,7 +36,7 @@ namespace View
                 Console.WriteLine("Erreur :" + e.Message);
             }
 
-            Tools.Menu(clientController);
+            Tools.Menu(clientController, strConnexion);
         }
     }
 }

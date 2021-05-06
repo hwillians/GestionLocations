@@ -6,6 +6,6 @@ namespace Repository.Contracts
     public interface IClientRepository
     {
         Client CreateClient(Client client);
-        List<Client> GetListClients();
+        List<Client> GetListClients(string strConnexion);
     }
 }

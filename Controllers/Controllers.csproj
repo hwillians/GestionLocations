@@ -49,6 +49,10 @@
       <Project>{594663F8-7EE6-4B48-B852-A80F8177976B}</Project>
       <Name>Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Repository.Contracts\Repository.Contracts.csproj">
+      <Project>{DBC5C23F-9A85-413E-827D-8CA2EB1F3EAF}</Project>
+      <Name>Repository.Contracts</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

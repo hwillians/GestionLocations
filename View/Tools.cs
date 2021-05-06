@@ -5,7 +5,7 @@ namespace View
 {
     public static class Tools
     {
-        public static void Menu(Controllers.ClientController clientController)
+        public static void Menu(Controllers.ClientController clientController, string strConnexion)
         {
             int choix = -1;
 
@@ -27,7 +27,7 @@ namespace View
                         break;
 
                     case 2:
-                        ;
+                       Write(string.Join("\n", clientController.GetListClient(strConnexion))) ;
                         break;
                     case 3:
                         WriteLine("Ajouter une Location");
